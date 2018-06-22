@@ -1,0 +1,40 @@
+@model wall.Models.MessageViewModel
+@using wall
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div id="header">
+    <h6>Coding Dojo Wall</h6>
+    <h6 class="header">Welcome @ViewBag.UserName</h6>
+    <h6 class="header"><a asp-controller="User" asp-action="Logout">Logout?</a></h6>
+</div>
+<div class="row messageForm">
+    <form asp-controller="Wall" asp-action="PostMessage" method="post">
+        <input class="u-full-width" asp-for="message" placeholder="Type your message here . . . "/>
+        <br><button class="button button-primary" type="submit">Post a Message</button>
+    </form>
+</div>
+<div class="row messages">
+    @if (@ViewBag.AllMessages != null) {
+    @foreach (var message in @ViewBag.AllMessages){
+        <div class="message">
+            <h3>@message["name"] - @message["date"]</h3>
+            <p>@message["message"]</p>
+                @if (@ViewBag.AllComments != null) {
+                @foreach (var comment in @ViewBag.AllComments) {
+                    if (@message["id"] == @comment["message_id"]) {
+                    <div class="comment">
+                        <h5> @comment["name"] - @comment["date"]</h5>
+                        <p> @comment["comment"]</p>
+                    </div>
+                    }
+                }
+                }
+                <form action="/postComment" method='post'>
+                    <textarea class="u-full-width" placeholder="Comment on this message . . . " name="comment"></textarea>
+                    <input type="hidden" name="message_id" value='@message["id"]'/>
+                    <br><button class="button" type="submit">Post your Comment</button>
+                </form>
+        </div>
+    }
+    }
+</div>

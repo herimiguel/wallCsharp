@@ -1,0 +1,23 @@
+@model wall.Models.RegisterViewModel
+@using wall
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<a href="/Log">To Login</a>
+<h3>Register</h3>
+<form asp-controller="User" asp-action="Register" method="post">
+    <label asp-for="first_name"></label>
+    <input asp-for="first_name"/>
+    <span class='error' asp-validation-for="first_name"></span>
+    <label asp-for="last_name"></label>
+    <input asp-for="last_name"/>
+    <span class='error' asp-validation-for="last_name"></span>
+    <label asp-for="email"></label>
+    <input asp-for="email"/>
+    <span class='error' asp-validation-for="email"></span>
+    <label asp-for="password"></label>
+    <input asp-for="password"/>
+    <span class='error' asp-validation-for="password"></span>
+    <label asp-for="confirm"></label>
+    <input asp-for="confirm"/>
+    <span class='error' asp-validation-for="confirm"></span>
+    <br><button type="submit">Register</button>
+</form>
